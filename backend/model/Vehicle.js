@@ -4,18 +4,21 @@ const vehicleSchema = new mongoose.Schema({
     mainType:{
         type:String,
         required :true,
-        enum:['Indian Bike',"Japan Bikes","3-Wheel",'Car']
+        enum:['Indian Bike', 'Japan Bike', '3-Wheel', 'Car']
     },
-    subType:{
-        type:String,
-        required:false,
-        enum:[
-            //Indian Bikes
+    subType: {
+        type: String,
+        required: false,
+        enum: [
+            // Indian Bikes
             'Dio','CT100','FZ','Pleasure',
-            //Japan Bikes
-            'Hornet','WRX','D-Tracker','Jade'
+            // Japan Bikes
+            'Hornet','WRX','D-Tracker','Jade',
+            // 3-Wheel
+            '2-Stroke','4-Stroke',
+            // Car
+            'WagonR','FB15','Lancer','Vitz'
         ]
-
     },
     vehicleNumber:{
         type:String,
