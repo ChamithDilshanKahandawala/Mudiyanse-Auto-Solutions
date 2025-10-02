@@ -1,14 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const vehicleTypeSchema = new mongoose.Schema({
-  mainType: {
-    type: String,
-    required: true
+  mainType:{
+    type:String,
+    required:true
   },
-  subTypes: [{
-    type: String
+  subTypes:[{
+    type:String
   }]
 });
 
-const VehicleType = mongoose.model('VehicleType', vehicleTypeSchema);
-export default VehicleType;
+const vehicleType = mongoose.model('VehicleType',vehicleTypeSchema);
+export default vehicleType;
