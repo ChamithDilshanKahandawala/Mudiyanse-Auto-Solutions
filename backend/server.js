@@ -28,10 +28,29 @@ app.post('/api/vehicles', async (req, res) => {
     console.error('Vehicle add error:', err); // <-- Add this line
     res.status(400).json({ error: err.message });
   }
+
+
+});
+
+app.get('/api/vehicles', async (req, res) => {
+  try {
+    const vehicles = await Vehicle.find();
+    res.json(vehicles);
+  } catch (err) {
+    console.error('Error fetching vehicles:', err);
+    res.status(500).json({ error: 'Failed to fetch vehicles' });
+  }
 });
 
 
-
+app.put('/api/vehicles/:id', async (req, res) => {
+  try {
+    const updated = await Vehicle.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
 
 app.listen(PORT, () => {
 	console.log(`Server started on port ${PORT}`);

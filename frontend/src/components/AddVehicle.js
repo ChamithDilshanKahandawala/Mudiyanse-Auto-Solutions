@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-function AddVehicle() {
+function AddVehicle({editVehicle,setEditVehicle}) {
   const [form, setForm] = useState({
     mainType: "",
     subType: "",
     vehicleNumber: "",
     photo: "",
     purchasePrice: "",
-  });
+  }); 
+
+  useEffect(() =>{
+    if(editVehicle){
+      setForm({
+        mainType: editVehicle.mainType,
+        subType: editVehicle.subType,
+        vehicleNumber: editVehicle.vehicleNumber,
+        photo: editVehicle.photo,
+        purchasePrice: editVehicle.purchasePrice,
+      });
+    }
+  }, [editVehicle]);
 
   const subTypeOptions = {
     "Indian Bike": ["Dio", "CT100", "FZ", "Pleasure"],
@@ -30,13 +42,28 @@ function AddVehicle() {
       purchasePrice: Number(form.purchasePrice),
     };
     try {
-      const res = await fetch("http://localhost:5000/api/vehicles", {
+      let res;
+
+      if(editVehicle && editVehicle._id){
+        res = await fetch(`http://localhost:5000/api/vehicles/${editVehicle._id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+
+      }else{
+        //add new vehicle
+        res = await fetch(`http://localhost:5000/api/vehicles`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      }
+
+      
       if (res.ok) {
-        alert("Vehicle added successfully");
+        alert(editVehicle ? 'Vehicle updated successfully':"Vehicle added successfully");
         setForm({
           mainType: "",
           subType: "",
@@ -44,8 +71,9 @@ function AddVehicle() {
           photo: "",
           purchasePrice: "",
         });
+        setEditVehicle(null);
       } else {
-        alert("Failed to add vehicle");
+        alert("Failed to save vehicle");
       }
     } catch (err) {
       alert("Server Error");
