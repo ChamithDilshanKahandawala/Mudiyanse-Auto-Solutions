@@ -13,13 +13,16 @@ services:
       - "5672:5672"
       - "15672:15672"
 
-  auth-service:
-    build: ./backend/auth-service
+  auth:
+    build: ./backend/Services/Auth
+    container_name: auth-service
     ports:
       - "5001:5001"
     environment:
       - MONGO_URI=mongodb://mongo:27017/mudiyanse_auth
       - JWT_SECRET=${JWT_SECRET}
+    volumes:
+      - ./backend/Services/Auth:/app
     depends_on:
       - mongo
 
