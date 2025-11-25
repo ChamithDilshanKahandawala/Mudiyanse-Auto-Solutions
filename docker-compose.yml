@@ -12,6 +12,7 @@ services:
     container_name: auth-service
     ports:
       - "5001:5001"
+      - "5003:5003"
     env_file:
       - ./backend/Services/Auth/.env
     # We keep the backend volume for live reloading

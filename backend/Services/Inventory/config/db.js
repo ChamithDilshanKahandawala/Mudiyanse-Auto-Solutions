@@ -1,0 +1,15 @@
+import mongoos from 'mongoose';
+
+const connectDB = async () =>{
+    try{
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log('Inventory Service: MongoDB connected successfully! 🛠️');
+
+    } catch(error){
+        console.error(`Inventory DB Error: ${error.message}`);
+    // Exit process with failure
+        process.exit(1);
+    }
+}
+
+export default connectDB;
