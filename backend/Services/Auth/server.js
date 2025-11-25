@@ -2,33 +2,31 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-// --- Import Custom Modules ---
+//import custom modules
 import connectDB from './config/db.js';
 import authRoutes from './routes/auth.js';
 
-// --- Configuration ---
-// Load environment variables from the .env file
+//--configuration--
+//load environment variables
 dotenv.config();
 
-// --- Database Connection ---
-// Establish the connection to MongoDB
+//connect to database
 connectDB();
 
-// --- Initialize Express App ---
-const app = express();
+//initialize express app
+const app =express();
 
-// --- Middleware ---
-// Enable Cross-Origin Resource Sharing (CORS) to allow requests from your frontend
+
+//--middleware--
 app.use(cors());
-// Enable the express.json middleware to parse incoming JSON request bodies
 app.use(express.json());
 
-// --- API Routes ---
-// Mount the authentication routes at the '/api/auth' path
+//--API Routes--
 app.use('/api/auth', authRoutes);
 
-// --- Server Startup ---
+//--start server--
 const PORT = process.env.PORT || 5001;
 
-app.listen(PORT, () => console.log(`Auth service started on port ${PORT} 🚀`));
-
+app.listen(PORT,()=>{
+    console.log(`Auth Service running on port ${PORT}`);
+});

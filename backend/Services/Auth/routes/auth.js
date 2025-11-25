@@ -1,26 +1,26 @@
 import express from 'express';
 
-// --- Import Custom Modules ---
-import { register, login } from '../controllers/authController.js';
+// import custom modules 
+import {register, login} from '../controllers/authController.js';
 
-// --- Initialize Express Router ---
+//initialize the express router
 const router = express.Router();
 
-// --- Define API Routes ---
+//Define API routes
 
 /**
- * @route   POST /api/auth/register
- * @desc    Register a new user
- * @access  Public
+ * @route POST/api/auth/register
+ * @desc Register  a new user
+ * @access Public
  */
 router.post('/register', register);
 
 /**
- * @route   POST /api/auth/login
- * @desc    Authenticate a user and get a token
- * @access  Public
+ * @route POST/api/auth/login
+ * @desc Authenticate a user and get token
+ * @access Public
  */
-router.post('/login', login);
+router.post('/login',login);
 
-// --- Export Router ---
+//export router
 export default router;
